@@ -374,12 +374,26 @@ ab.</p>
 <h2>Aufgabe 3</h2>
 <p>Installieren Sie das Paket „tidyverse“ und laden Sie es am Anfang
 Ihres Skripts.</p>
+<pre class="r"><code># install.packages(&quot;tidyverse&quot;)
+
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.1     ✔ readr     2.1.4
+## ✔ forcats   1.0.0     ✔ stringr   1.5.0
+## ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.1     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
 </div>
 <div id="aufgabe-4" class="section level2">
 <h2>Aufgabe 4</h2>
 <p>2021 war ein gutes Jahr für unsere Klinik – wir haben 451
 Patient:innen helfen können. Erstelle ein Objekt namens patienten2021
 und weisen Sie ihm den richtigen Wert zu.</p>
+<pre class="r"><code>patienten2021 = 451</code></pre>
 </div>
 <div id="aufgabe-5" class="section level2">
 <h2>Aufgabe 5</h2>
@@ -388,6 +402,9 @@ Depressionsstation „A6“ vergessen, die weitere 55 Patient:innen
 behandelt hat. Fügen Sie diese Patient:innen dem Objekt patienten2021
 hinzu. Als nächstes erstellen Sie ein Objekt namens lost_station mit dem
 Namen der Station.</p>
+<pre class="r"><code>patienten2021 = patienten2021 + 55
+
+lost_station = &quot;A6&quot;</code></pre>
 </div>
 <div id="aufgabe-6" class="section level2">
 <h2>Aufgabe 6</h2>
@@ -395,6 +412,10 @@ Namen der Station.</p>
 zurückgeben? Treffen Sie eine Vorhersage und testen Sie den Code dann
 selbst.</p>
 <p>a &lt;- 25 a + 25 a</p>
+<pre class="r"><code>a &lt;- 25
+a + 25</code></pre>
+<pre><code>## [1] 50</code></pre>
+<pre class="r"><code># Das Ergebnis ist 50.</code></pre>
 </div>
 <div id="aufgabe-7" class="section level2">
 <h2>Aufgabe 7</h2>
@@ -403,25 +424,55 @@ Variablen „Name“, „Einwohnerzahl“, „Hauptstadt“, „Regierung“. Re
 soll eine Faktorvariable mit den Stufen [„Konstinutionelle Monarchie“,
 „Parlamentarische Demokratie“] sein. Ihre Stichprobe sind die Länder
 Frankreich, Spanien, Dänemark und Deutschland.</p>
+<pre class="r"><code>laender = data.frame(
+  Name = c(&quot;Frankreich&quot;, &quot;Spanien&quot;, &quot;Dänemark&quot;, &quot;Deutschland&quot;),
+  Einwohnerzahl = c(68000000, 47000000, 6000000, 83000000),
+  Hauptstadt = c(&quot;Paris&quot;, &quot;Madrid&quot;, &quot;Kopenhagen&quot;, &quot;Berlin&quot;),
+  Regierung = factor(c(2,1,1,2), levels = 1:2, labels = c(&quot;Konstinutionelle Monarchie&quot;, &quot;Parlamentarische Demokratie&quot;))
+)
+
+laender</code></pre>
+<pre><code>##          Name Einwohnerzahl Hauptstadt                   Regierung
+## 1  Frankreich       6.8e+07      Paris Parlamentarische Demokratie
+## 2     Spanien       4.7e+07     Madrid  Konstinutionelle Monarchie
+## 3    Dänemark       6.0e+06 Kopenhagen  Konstinutionelle Monarchie
+## 4 Deutschland       8.3e+07     Berlin Parlamentarische Demokratie</code></pre>
 </div>
 <div id="aufgabe-8" class="section level2">
 <h2>Aufgabe 8</h2>
 <p>Lass Sie sich die Einwohnerzahl des 2. Landes anzeigen.</p>
+<pre class="r"><code>laender$Einwohnerzahl[2]</code></pre>
+<pre><code>## [1] 4.7e+07</code></pre>
 </div>
 <div id="aufgabe-9" class="section level2">
 <h2>Aufgabe 9</h2>
 <p>Lassen Sie sich alle Variablen für das 1. Land im data.frame
 „laender“ anzeigen.</p>
+<pre class="r"><code>laender[1,]</code></pre>
+<pre><code>##         Name Einwohnerzahl Hauptstadt                   Regierung
+## 1 Frankreich       6.8e+07      Paris Parlamentarische Demokratie</code></pre>
 </div>
 <div id="aufgabe-10" class="section level2">
 <h2>Aufgabe 10</h2>
 <p>Erzeugen Sie den Vektor [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] auf drei
 Arten: einmal mit c(), einmal mit a:b und einmal mit seq().</p>
+<pre class="r"><code>c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>1:10</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>seq(1,10,1)</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 </div>
 <div id="aufgabe-11" class="section level2">
 <h2>Aufgabe 11</h2>
 <p>Erzeugen Sie den Vektor [101, 102, 103, 200, 205, 210, 1000, 1100,
 1200] mit einer Kombination aus den Funktionen c() und seq()</p>
+<pre class="r"><code>c(
+  seq(101,103, 1),
+  seq(200, 210, 5),
+  seq(1000, 1200, 100)
+)</code></pre>
+<pre><code>## [1]  101  102  103  200  205  210 1000 1100 1200</code></pre>
 </div>
 <div id="aufgabe-12" class="section level2">
 <h2>Aufgabe 12</h2>
@@ -429,12 +480,25 @@ Arten: einmal mit c(), einmal mit a:b und einmal mit seq().</p>
 aufgenommen. Es handelt sich um 10 Patienten mit Schizophrenie, 40 mit
 Angststörungen und 50 Depressive Patient:innen. Erstellen Sie einen
 einen Vektor (Faktor), der die entsprechenden Diagnosen enthält</p>
+<pre class="r"><code>Diagnosen = c(
+  rep(&quot;Schizophrenie&quot;, 10),
+  rep(&quot;Angststörung&quot;, 40),
+  rep(&quot;Depression&quot;, 50)
+)
+
+is.factor(Diagnosen)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>Diagnosen = factor(Diagnosen)
+
+is.factor(Diagnosen)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
 </div>
 <div id="aufgabe-13" class="section level2">
 <h2>Aufgabe 13</h2>
 <p>Erstelle einen Vektor, der die ganzen Zahlen von 1 bis 5 10-mal
 wiederholt. Das ist [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, …]. Die Länge des
 Vektors sollte 50 sein!</p>
+<pre class="r"><code>vector = rep(1:5, 10)</code></pre>
 </div>
 </div>
 
