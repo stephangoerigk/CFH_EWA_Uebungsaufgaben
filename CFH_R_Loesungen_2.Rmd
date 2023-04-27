@@ -1,0 +1,154 @@
+---
+title: "Übungsaufgaben - Übung zur computergestützten Datenanalyse"
+output: html_document
+---
+
+# Aufgaben Einheit 2
+
+## Aufgabe 1
+
+Installieren Sie das Paket R Paket "babynames". In dem Paket ist ein gleichnamiger Datensatz enthalten (babynames), welcher Angaben enthält wie häufig ein Vornahme in den USA vertreten war. Diese Angaben gibt es für jedes Jahr. Lassen Sie sich mit den Funktionen `names()`, `ncol()` und `nrow()` die Variablennamen, Anzahl Spalten und Anzahl Zeilen des Datensatzes angeben. Schreiben Sie einen kurzen Antwortsatz.
+
+```{r}
+# install.packages("babynames")
+library(babynames)
+
+names(babynames)
+ncol(babynames)
+nrow(babynames)
+```
+
+Der Datensatz babynames enthält die Variablen "year", "sex",  "name", "n", "prop". Er hat somit 5 Spalten und enthält 1924665 Namen/Reihen.
+
+## Aufgabe 2
+
+Prüfen Sie mittels einer Häufigkeitstabelle, wie viele der vergebenen Namen weiblich bzw. männlich waren und wie viel Prozent dies jeweils ausmachte (über alle Jahre hinweg). Schreiben Sie die berechneten absoluten und relativen Häufigkeiten für die **weiblichen Namen** mit der `paste0()` Funktion in das Format N (%), bei welchen erst die absolute Häufigkeit notiert wird, gefolgt von der relativen Häufigkeiten in Klammern. Runden Sie die relative Häufigkeit auf 2 Nachkommastellen. Schreiben Sie einen kurzen Antwortsatz.
+
+```{r}
+table(babynames$sex)
+
+prop.table(table(babynames$sex))
+
+absolut_frauen = table(babynames$sex)["F"]
+relativ_frauen = prop.table(table(babynames$sex))["F"] * 100
+relativ_frauen = round(relativ_frauen, 2)
+
+paste0(absolut_frauen, " (", relativ_frauen, ")")
+```
+
+In dem Datensatz sind über alle Jahre hinweg 1138293 Einträge für weibliche Namen enthalten. Das entspricht relativ zu den männlichen Namen 59.14%.
+
+## Aufgabe 3
+
+Lassen Sie sich mit der `length()` Funktion die Länge der Variable `name` anzeigen (also die Anzahl aller Namenseinträge). Hier können aufgrund der Erfassung in mehreren Jahren Mehrfachnennungen auftreten (z.B. Anzahl des Namen "John" kommt vermutlich in jedem Jahr vor). 
+Nutzen Sie eine Kombination aus den Funktionen `unique()` und `length()`, um herauszufinden, wie viele unterschiedliche Namen in dem Datensatz vorkommen (also jeden Namen nur einfach zählen). Schreiben Sie einen kurzen Antwortsatz.
+
+```{r}
+length(babynames$name)
+
+uniquenames = unique(babynames$name)
+
+length(uniquenames)
+```
+
+Die Variable `name` des Datensatzes `babynames` hat eine Länge von 1924665 Elementen. Das entspricht der Gesamtzeilenzahl des Datensatzes. Insgesamt sind Einträge von 97310 Namen vorhanden. 
+
+## Aufgabe 4
+
+Wählen Sie aus dem Gesamtdatensatz nur **männliche** Einträge **seit dem Jahr 2000** aus und speichern Sie diese in ein Objekt male_2000. Prüfen Sie, wie viele einzigartige Namen in diesem Jahr vergeben wurden.
+
+```{r}
+male_2000 = babynames[babynames$sex == "M" & babynames$year >= 2000,]
+
+uniquenames_2000 = unique(male_2000$name)
+
+length(uniquenames_2000)
+```
+
+## Aufgabe 5
+
+Wählen Sie aus dem Gesamtdatensatz nur **männliche** Einträge aus dem **letzten verfügbaren Jahr** aus. Nutzen Sie dafür die Funktion `max()`. Prüfen Sie, welches der am häufigsten vergebene Name war und wie oft dieser vergeben wurde. Schreiben Sie einen kurzen Antwortsatz.
+
+```{r}
+max_year = max(babynames$year) # letztes verfügbaren Jahr finden
+
+male_max= babynames[babynames$sex == "M" & babynames$year == max_year,]
+
+max(male_max$n)
+
+male_max$name[male_max$n == max(male_max$n)]
+```
+
+Das letzte verfügbare Jahr im Datensatz ist 2017. In diesem Jahr war der häufigste männliche Vorname Liam. Diese Name wurde 18728 vergeben.
+
+## Aufgabe 6
+
+Prüfen Sie wie häufig der Name Bernadette im Jahre 1900 im Vergleich zum Jahre 2010 vorkam. Prüfen Sie ob diese Anzahl über oder unter dem Durchschnitt der Namensnennungen des jeweiligen Jahres lag. Schreiben Sie einen kurzen Antwortsatz
+
+```{r}
+babynames$n[babynames$name == "Bernadette" & babynames$year == 1900]
+
+mean(babynames$n[babynames$year == 1900])
+
+babynames$n[babynames$name == "Bernadette" & babynames$year == 2010]
+
+mean(babynames$n[babynames$year == 2010])
+```
+Die Verwendung des Namens Bernadette lag im Jahre 2010 mit 78 Nennungen höher als im Jahre 1900 mit 47 Nennungen. Damit liegt der Name in beiden Jahren unter dem Durchschnitt, jedoch wurden Namen im Jahr 2010 im Schnitt nur 108 mal vergeben, während dies im Jahr 1900 noch 121 waren.
+
+## Aufgabe 7
+
+Erstellen Sie eine Tabelle mit dem `dataframe()` Befehl. Die Tabelle soll 18 Zeilen haben, welche die Jahreszahlen 2000-2017 repräsentieren. Eine Spalte soll die jeweilige Jahreszahl enthalten. In 2 weiteren Spalten sollten die Nennungen der Frauennamen Gertrude und Taylor enthalten. Lassen Sie sich die Tabllen mithilfe der Funktion `flextable()` aus dem `flextable` Paket formatieren und anzeigen.
+
+```{r}
+nur_F = babynames[babynames$sex == "F",]
+
+tab = data.frame(Jahr = 2000:2017)
+
+tab$Gertrude = c(nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2000],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2001],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2002],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2003],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2004],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2005],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2006],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2007],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2008],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2009],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2010],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2011],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2012],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2013],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2014],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2015],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2016],
+                 nur_F$n[nur_F$name == "Gertrude" & nur_F$year == 2017])
+
+tab$Taylor = c(nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2000],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2001],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2002],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2003],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2004],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2005],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2006],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2007],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2008],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2009],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2010],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2011],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2012],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2013],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2014],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2015],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2016],
+               nur_F$n[nur_F$name == "Taylor" & nur_F$year == 2017])
+
+library(flextable)
+
+flextable(tab)
+```
+
+
+
+
+

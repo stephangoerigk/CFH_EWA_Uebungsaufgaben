@@ -1,0 +1,43 @@
+---
+title: "Übungsaufgaben - Übung zur computergestützten Datenanalyse"
+output: html_document
+---
+
+# Aufgaben Einheit 2
+
+## Aufgabe 1
+
+Installieren Sie das Paket R Paket "babynames". In dem Paket ist ein gleichnamiger Datensatz enthalten (babynames), welcher Angaben enthält wie häufig ein Vornahme in den USA vertreten war. Diese Angaben gibt es für jedes Jahr. Lassen Sie sich mit den Funktionen `names()`, `ncol()` und `nrow()` die Variablennamen, Anzahl Spalten und Anzahl Zeilen des Datensatzes angeben. Schreiben Sie einen kurzen Antwortsatz.
+
+## Aufgabe 2
+
+Prüfen Sie mittels einer Häufigkeitstabelle, wie viele der vergebenen Namen weiblich bzw. männlich waren und wie viel Prozent dies jeweils ausmachte (über alle Jahre hinweg). Schreiben Sie die berechneten absoluten und relativen Häufigkeiten für die **weiblichen Namen** mit der `paste0()` Funktion in das Format N (%), bei welchen erst die absolute Häufigkeit notiert wird, gefolgt von der relativen Häufigkeiten in Klammern. Runden Sie die relative Häufigkeit auf 2 Nachkommastellen. Schreiben Sie einen kurzen Antwortsatz.
+
+## Aufgabe 3
+
+Lassen Sie sich mit der `length()` Funktion die Länge der Variable `name` anzeigen (also die Anzahl aller Namenseinträge). Hier können aufgrund der Erfassung in mehreren Jahren Mehrfachnennungen auftreten (z.B. Anzahl des Namen "John" kommt vermutlich in jedem Jahr vor). 
+Nutzen Sie eine Kombination aus den Funktionen `unique()` und `length()`, um herauszufinden, wie viele unterschiedliche Namen in dem Datensatz vorkommen (also jeden Namen nur einfach zählen). Schreiben Sie einen kurzen Antwortsatz.
+
+## Aufgabe 4
+
+Wählen Sie aus dem Gesamtdatensatz nur **männliche** Einträge **seit dem Jahr 2000** aus und speichern Sie diese in ein Objekt male_2000. Prüfen Sie, wie viele einzigartige Namen in diesem Jahr vergeben wurden.
+
+## Aufgabe 5
+
+Wählen Sie aus dem Gesamtdatensatz nur **männliche** Einträge aus dem **letzten verfügbaren Jahr** aus. Nutzen Sie dafür die Funktion `max()`. Prüfen Sie, welches der am häufigsten vergebene Name war und wie oft dieser vergeben wurde. Schreiben Sie einen kurzen Antwortsatz.
+
+Das letzte verfügbare Jahr im Datensatz ist 2017. In diesem Jahr war der häufigste männliche Vorname Liam. Diese Name wurde 18728 vergeben.
+
+## Aufgabe 6
+
+Prüfen Sie wie häufig der Name Bernadette im Jahre 1900 im Vergleich zum Jahre 2010 vorkam. Prüfen Sie ob diese Anzahl über oder unter dem Durchschnitt der Namensnennungen des jeweiligen Jahres lag. Schreiben Sie einen kurzen Antwortsatz
+
+## Aufgabe 7
+
+Erstellen Sie eine Tabelle mit dem `dataframe()` Befehl. Die Tabelle soll 18 Zeilen haben, welche die Jahreszahlen 2000-2017 repräsentieren. Eine Spalte soll die jeweilige Jahreszahl enthalten. In 2 weiteren Spalten sollten die Nennungen der Frauennamen Gertrude und Taylor enthalten. Lassen Sie sich die Tabllen mithilfe der Funktion `flextable()` aus dem `flextable` Paket formatieren und anzeigen.
+
+
+
+
+
+
